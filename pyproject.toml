@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "group9-crypto-streamlit"
+version = "0.1.0"
+description = "Streamlit dashboard for Group 9 Crypto Next-Day Prediction"
+authors = ["Monika Shakya <monika@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.11.4"
+streamlit = "^1.38.0"
+plotly = "^5.24.0"
+requests = "^2.32.3"
+pandas = "^2.2.3"
+numpy = "^1.26.4"
+fastapi = "^0.115.0"
+uvicorn = "^0.30.0"
+joblib = "^1.4.2"
+scikit-learn = "^1.5.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
