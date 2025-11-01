@@ -86,7 +86,6 @@ class XRPDashboard:
             df["TIMESTAMP"] = pd.to_datetime(df["TIMESTAMP"], unit="s", utc=True).dt.tz_convert("UTC")
             self.draw_chart(df)
 
-    # 🤖 PREDICT MODE
     def mode_predict(self):
         st.subheader(f"🤖 {self.user}'s Prediction Mode")
 
@@ -96,10 +95,8 @@ class XRPDashboard:
             res = requests.get(API_URL).json()
             predicted = float(res["predicted_high_next_day"])
 
-            # ✅ now timestamp for prediction fetch
             now_ts = int(datetime.now(timezone.utc).timestamp())
 
-            # ✅ fixed 90 days history
             data = self.fetch_xrp(limit=90, to_ts=now_ts)
             df = pd.DataFrame(data)
             df["TIMESTAMP"] = pd.to_datetime(df["TIMESTAMP"], unit="s")
