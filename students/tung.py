@@ -42,6 +42,7 @@ class XRPDashboard:
                 x=[predict_point["date"]],
                 y=[predict_point["value"]],
                 mode="markers+text",
+                name="Prediction",
                 text=["Predicted High"],
                 textposition="top center",
                 marker=dict(size=13, color="red", symbol="circle")
@@ -87,7 +88,7 @@ class XRPDashboard:
             self.draw_chart(df)
 
     def mode_predict(self):
-        st.subheader(f"🤖 {self.user}'s Prediction Mode")
+        st.subheader(f"{self.user}'s Prediction Mode")
 
         if st.button("🚀 Predict Next High", key=f"{self.user}_predict_btn"):
 
@@ -111,7 +112,7 @@ class XRPDashboard:
     def run(self):
         mode = st.radio(
             f"{self.user}, choose mode:",
-            ["📈 Load Chart", "🤖 Predict"],
+            ["📈 Load Chart", "Predict"],
             key=f"{self.user}_mode"
         )
 
