@@ -92,22 +92,27 @@ class XRPDashboard:
 
         if st.button("🚀 Predict Next High", key=f"{self.user}_predict_btn"):
 
-            # Fetch predicted value from FastAPI
-            res = requests.get(API_URL).json()
-            predicted = float(res["predicted_high_next_day"])
+            with st.spinner("Render server is waking up... It may take up to 1 minute..."):
+            
+                res = requests.get(API_URL).json()
+                predicted = float(res["predicted_high_next_day"])
 
-            now_ts = int(datetime.now(timezone.utc).timestamp())
+                now_ts = int(datetime.now(timezone.utc).timestamp())
 
-            data = self.fetch_xrp(limit=90, to_ts=now_ts)
-            df = pd.DataFrame(data)
-            df["TIMESTAMP"] = pd.to_datetime(df["TIMESTAMP"], unit="s")
+                data = self.fetch_xrp(limit=90, to_ts=now_ts)
+                df = pd.DataFrame(data)
+                df["TIMESTAMP"] = pd.to_datetime(df["TIMESTAMP"], unit="s")
 
-            next_date = df["TIMESTAMP"].max() + pd.Timedelta(days=1)
+                next_date = df["TIMESTAMP"].max() + pd.Timedelta(days=1)
 
-            self.draw_chart(df, title="XRP Prediction vs History",
-                            predict_point={"date": next_date, "value": predicted})
+                # Draw chart with predicted point
+                self.draw_chart(
+                    df,
+                    title="XRP Prediction vs History",
+                    predict_point={"date": next_date, "value": predicted}
+                )
 
-            st.success(f"✅ Predicted next-day HIGH: **{predicted:.4f} USD**")
+                st.success(f"✅ Predicted next-day HIGH: **{predicted:.4f} USD**")
 
     def run(self):
         mode = st.radio(
