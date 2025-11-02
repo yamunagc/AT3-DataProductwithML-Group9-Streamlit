@@ -13,7 +13,7 @@ st.title("⭐ Group 9 Crypto Prediction")
 tabs = st.tabs(["Tung (XRP)", "Monika (BTC)", "Yamuna (ETH)", "Thang (TRX)"])
 
 with tabs[0]:
-    st.write("✅ You are working on **XRP**.")
+    st.write("You are working on **XRP**.")
     XRPDashboard("XRP").run()
 
 with tabs[1]:
