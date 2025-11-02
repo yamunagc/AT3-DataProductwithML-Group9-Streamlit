@@ -4,7 +4,7 @@ import pandas as pd
 import plotly.graph_objs as go
 from datetime import datetime, time, date, timezone
 
-API_URL = "http://localhost:8000/predict/xrp"
+API_URL = "https://at3-xrp-fastapi-25608516.onrender.com/predict/xrp"
 API_KEY = "c62e1a5b4597376b78386f97a7f188f87d462dd7bd8c02de1561d0d4c6dab60c"
 
 class XRPDashboard:
