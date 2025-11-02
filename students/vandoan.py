@@ -219,7 +219,6 @@ class TRONDashboard:
     # 5️⃣ MAIN RUN
     # ======================================================
     def run(self):
-        st.set_page_config(page_title="TRON Prediction Dashboard", layout="wide")
         st.title("💎 TRON (TRX-USD) TradingView-style Dashboard")
 
         with st.spinner("📡 Fetching TRON data..."):
@@ -255,11 +254,3 @@ class TRONDashboard:
         self.display_indicators(selected)
 
         st.caption("⚙️ Data source: CoinDesk API | Prediction: FastAPI (Render)")
-
-
-# ======================================================
-# ENTRY POINT
-# ======================================================
-if __name__ == "__main__":
-    app = TRONDashboard()
-    app.run()
