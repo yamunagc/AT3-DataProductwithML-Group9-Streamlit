@@ -5,7 +5,7 @@ import plotly.graph_objs as go
 from datetime import datetime, timezone
 
 class TRONDashboard:
-    """TradingView-style dashboard for TRON (TRX-USD) prediction & analysis."""
+    """Dashboard for TRON (TRX-USD) prediction & analysis."""
 
     def __init__(self):
         self.API_URL = "https://at3-fast-api-4b7s.onrender.com/predict/TRON"
@@ -218,6 +218,7 @@ class TRONDashboard:
     # 5️⃣ MAIN RUN
     # ======================================================
     def run(self):
+        st.set_page_config(page_title="TRON Prediction Dashboard", layout="wide")
         st.title("💎 TRON (TRX-USD) TradingView-style Dashboard")
 
         with st.spinner("📡 Fetching TRON data..."):
