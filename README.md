@@ -41,9 +41,12 @@ pip install -r requirements.txt
 streamlit run app/main.py
 ```
 The app will open at:
-➡️ http://localhost:8501
+http://localhost:8501
 
-## 5) Run the deployed streamlit app online
+## 5) Run the deployed rendered streamlit app online
 
 https://at3-dataproductwithml-group9-streamlit.onrender.com/
 
+## 6) Run the deployed streamlit cloud app online
+
+https://at3-dataappuctwithml-group9-app-une5folrytwkjgnp83ebnu.streamlit.app/
