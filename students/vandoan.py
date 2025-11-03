@@ -219,6 +219,7 @@ class TRONDashboard:
     # 5️⃣ MAIN RUN
     # ======================================================
     def run(self):
+        st.set_page_config(page_title="TRON Prediction Dashboard", layout="wide")
         st.title("💎 TRON (TRX-USD) TradingView-style Dashboard")
 
         with st.spinner("📡 Fetching TRON data..."):
