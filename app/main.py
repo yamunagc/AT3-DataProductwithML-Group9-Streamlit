@@ -5,6 +5,7 @@ import streamlit as st
 from students.tung import XRPDashboard
 from students.vandoan import TRONDashboard
 from students.monika import ETHDashboard
+from students.yamuna import BTCDashboard
 
 st.set_page_config(page_title="Team Crypto Workspace", layout="wide")
 
@@ -21,6 +22,7 @@ with tabs[0]:
 
 with tabs[1]:
     st.write("You are working on **BTC**.")
+    BTCDashboard().run()
 
 with tabs[2]:
     st.write("You are working on **ETH**.")
