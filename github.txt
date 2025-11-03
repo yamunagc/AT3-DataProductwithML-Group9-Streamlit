@@ -1,3 +1,4 @@
 https://github.com/tungbi811/at3-xrp-fastapi
 https://github.com/yamunagc/AT3-DataProductwithML-25593649-fastapi.git
 https://github.com/dvtbn19/at3_fast_api
+https://github.com/monika318/NextDayCrypto_app
