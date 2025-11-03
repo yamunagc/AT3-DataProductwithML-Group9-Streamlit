@@ -4,7 +4,6 @@ import pandas as pd
 import plotly.graph_objs as go
 from datetime import datetime, timezone
 
-
 class TRONDashboard:
     """TradingView-style dashboard for TRON (TRX-USD) prediction & analysis."""
 

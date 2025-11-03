@@ -8,8 +8,9 @@ API_URL = "https://at3-xrp-fastapi-25608516.onrender.com/predict/xrp"
 API_KEY = "c62e1a5b4597376b78386f97a7f188f87d462dd7bd8c02de1561d0d4c6dab60c"
 
 class XRPDashboard:
-    def __init__(self, user_name):
+    def __init__(self, user_name:str = "XRP"):
         self.user = user_name
+        self.chart_area = None
 
     def fetch_xrp(self, limit: int, to_ts: int):
         url = (
@@ -115,11 +116,17 @@ class XRPDashboard:
                 st.success(f"✅ Predicted next-day HIGH: **{predicted:.4f} USD**")
 
     def run(self):
+        if self.chart_area is None:
+            self.chart_area = st.empty()  # container to control clearing
+
         mode = st.radio(
             f"{self.user}, choose mode:",
-            ["📈 Load Chart", "Predict"],
+            ["📈 Load Chart", "🤖 Predict"],
             key=f"{self.user}_mode"
         )
+
+        # ✅ Clear chart when switching mode
+        self.chart_area.empty()
 
         if mode == "📈 Load Chart":
             self.mode_chart()
