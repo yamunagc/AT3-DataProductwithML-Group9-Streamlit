@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 
 
 class TRONDashboard:
-    """TradingView-style dashboard for TRON (TRX-USD) prediction & analysis."""
+    """Dashboard for TRON (TRX-USD) prediction & analysis."""
 
     def __init__(self):
         self.API_URL = "https://at3-fast-api-4b7s.onrender.com/predict/TRON"
