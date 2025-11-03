@@ -22,7 +22,8 @@ with tabs[0]:
 
 with tabs[1]:
     st.write("You are working on **BTC**.")
-    BTCDashboard().run()
+    btc = BTCDashboard()
+    btc.run()
 
 with tabs[2]:
     st.write("You are working on **ETH**.")

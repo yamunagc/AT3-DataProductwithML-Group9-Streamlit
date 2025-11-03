@@ -103,36 +103,61 @@ class ETHDashboard:
     # -----------------------------
     # 🤖 Prediction Mode
     # -----------------------------
+    
     def mode_predict(self):
         st.subheader("🤖 Predict Ethereum Next-Day HIGH")
 
         if st.button("🚀 Predict using Live API (GET /predict/ethereum)"):
             try:
-                # GET from your FastAPI (server fetches fresh features itself)
+                # GET from your FastAPI (server fetches features for last completed UTC day D; predicts D+1)
                 res = requests.get(API_URL, timeout=30)
                 res.raise_for_status()
                 out = res.json()
 
-                # Extract predicted value + features used
-                predicted = float(out["predicted_next_day_high"])
+            # --- read values from API (robust to either key name) ---
+                predicted = out.get("predicted_next_day_high", out.get("predicted_high_next_day"))
+                if predicted is None:
+                    raise KeyError("predicted_next_day_high")
+
+                predicted = float(predicted)
                 features_used = out.get("features_used", {})
+                pred_day = out.get("prediction_for_day_utc")  # e.g., "2025-11-04"
 
-                st.json(features_used)
-                st.success(f"✅ Predicted Next-Day HIGH: **${predicted:,.2f} USD**")
+            # show features
+                # st.json(features_used)
+                if pred_day:
+                    st.success(f"✅ Predicted Next-Day HIGH for {pred_day}: **${predicted:,.2f} USD**")
+                else:
+                    st.success(f"✅ Predicted Next-Day HIGH: **${predicted:,.2f} USD**")
 
-                # Display as an annotation on historical chart
+            # Pull recent history and plot with prediction marker on the API's prediction day
                 now_ts = int(datetime.now(timezone.utc).timestamp())
                 data = self.fetch_eth(limit=60, to_ts=now_ts)
                 df = pd.DataFrame(data)
+                if df.empty:
+                    st.warning("No historical data to plot.")
+                    return
+
                 df["TIMESTAMP"] = pd.to_datetime(df["TIMESTAMP"], unit="s", utc=True)
 
-                next_date = df["TIMESTAMP"].max() + pd.Timedelta(days=1)
-                self.draw_chart(df, predict_point={"date": next_date, "value": predicted})
+            # Use the API's prediction date if provided; otherwise fall back to last + 1 day
+                if pred_day:
+                    pred_day_ts = pd.Timestamp(pred_day).tz_localize("UTC")
+                else:
+                    pred_day_ts = df["TIMESTAMP"].max() + pd.Timedelta(days=1)
 
-                st.caption("Model uses Kraken live data via FastAPI backend.")
+                self.draw_chart(
+                    df,
+                    title="ETH Prediction vs History",
+                    predict_point={"date": pred_day_ts, "value": predicted}
+                )
+
+                st.caption("Prediction date is UTC from your FastAPI (D+1).")
 
             except requests.exceptions.RequestException as e:
                 st.error(f"❌ API call failed: {e}")
+            except KeyError as e:
+                st.error(f"⚠️ Missing key in API response: {e}")
             except Exception as e:
                 st.error(f"⚠️ Error during prediction: {e}")
 
@@ -142,8 +167,7 @@ class ETHDashboard:
     def run(self):
         mode = st.radio(
             f"{self.user}, choose mode:",
-            ["📈 Historical Data", "🤖 Predict Next-Day HIGH"],
-            key=f"{self.user}_mode"
+            ["📈 Historical Data", "🤖 Predict Next-Day HIGH"]
         )
 
         if mode == "📈 Historical Data":

@@ -30,7 +30,7 @@ COINDESK_API_KEY  = os.getenv("COINDESK_API_KEY", "").strip()
 # }
 
 class BTCDashboard:
-    def __init__(self, user_name: str = "BTC"):
+    def __init__(self, user_name: str="BTC"):
         self.user = user_name
 
     # ---------- Data Fetchers ----------
